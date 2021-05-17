@@ -2,6 +2,25 @@
 <template>
   <div class="admin-login">
     <h1>后台管理系统</h1>
+    <div class="admin-login-form">
+      <el-form :model="formData" :rules="rules">
+        <el-form-item>
+          <el-input v-model="formData.username" placeholder="用户名"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input type="password" v-model="formData.password" placeholder="密码"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" class="login-form-button">登录</el-button>
+        </el-form-item>
+      </el-form>
+      <!-- 温馨提示 -->
+      <div class="login-tip">
+        <p>温馨提示</p>
+        <p>未登录过的新用户，自动注册</p>
+        <p>注册过的用户可凭账号密码登录</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,7 +33,15 @@ export default {
   components: {},
   data() {
     //这里存放数据
-    return {};
+    return {
+      // 表单数据
+      formData: {
+        username: "",
+        password: ""
+      },
+      // 规则
+      rules: {}
+    };
   },
   //监听属性 类似于data概念
   computed: {},
@@ -41,10 +68,23 @@ export default {
   width: 300px;
   height: 400px;
   padding-top: 300px;
-  h1{
+  h1 {
+    text-align: center;
+    font-weight: 300;
+    color: white;
+  }
+  .admin-login-form {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    .login-form-button {
+      width: 100%;
+    }
+    .login-tip {
+      color: red;
       text-align: center;
-      font-weight: 300;
-      color: white;
+      font-size: 0.75em;
+    }
   }
 }
 </style>
