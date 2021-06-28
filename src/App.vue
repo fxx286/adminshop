@@ -7,7 +7,7 @@
 
 export default {
   created() {
-    this.$http.get("admin/info").then(res => {
+    this.$http.get("/getAllMemberlnfo").then(res => {
       // console.log(res.data); // 把 data 去掉
       console.log(res);
     });

@@ -3,7 +3,7 @@ import axios from "axios"
 // 配置基本URL
 
 const instance = axios.create({
-    baseURL: "http://linweiqin.cn:8001/"
+    baseURL: "http://rap2api.taobao.org/app/mock/284498/"
 })
 
 // 添加响应拦截器

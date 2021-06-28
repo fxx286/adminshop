@@ -43,6 +43,27 @@ import CryptoJS from "crypto-js";
 
 export default {
   //import引入的组件需要注入到对象中才能使用
+  beforeRouteEnter(to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+    console.log("组件中的导航守卫：beforeRouteEnter");
+    next();
+  },
+  beforeRouteUpdate(to, from, next) {
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+    console.log("组件中的导航守卫：beforeRouteUpdate");
+    next();
+  },
+  beforeRouteLeave(to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    // 可以访问组件实例 `this`
+    console.log("组件中的导航守卫：beforeRouteLeave");
+    next();
+  },
   components: {},
   data() {
     //这里存放数据
@@ -85,16 +106,17 @@ export default {
   methods: {
     handleSubmit: function(name) {
       // console.log(this.formData);
-      this.$refs[name].validate((valid, obj) => {
-        console.log(valid, obj);
+      // this.$refs[name].validate((valid, obj) => {
+      this.$refs[name].validate(() => {
+        // console.log(valid, obj);
         let password = this.formData.password;
         let username = this.formData.username;
         // AES 对称加密 加密和解密都是同一把密钥
         // password = CryptoJS.AES.decrypt(password, 'adminshop');
         password = CryptoJS.HmacSHA1(password, "adminshop").toString();
-        console.log(username, password);
+        // console.log(username, password);
         this.$http
-          .post("admin/login", {
+          .post("Login", {
             user_name: username,
             password
           })
